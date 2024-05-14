@@ -62,15 +62,17 @@ tabelaGeral AS ( -- Foi feito o agrupamento pois se puxar a tabela 'crua' as 'en
         AND fmf.data <= '2024-05-14'
 ) -- SELECT * FROM tabelaGeral ORDER BY Data ASC;
 SELECT
-    YEAR(Data),
-    MONTH(Data),
-    tpRec,
+    Data,
     SUM(Entrada) Entrada, 
-    SUM(Saida) Saida 
-    -- SUM(Entrada - Saida) Saldo
+    SUM(Saida) Saida, 
+    SUM(Entrada - Saida) Saldo,
+    SUM(SUM(Entrada - Saida)) OVER (ORDER BY Data ASC) AS SaldoAcumulado
+/* A operação acimaresponsável por calcular o saldo acumulado. O SUM(Entrada - Saida) calcula o saldo do dia, 
+e a função de janela OVER (ORDER BY Data ASC) garante que o saldo acumulado seja calculado na ordem das datas.
+*/
 FROM 
-    `tabelaGeral`
-GROUP BY 
-    tpRec, YEAR(Data), MONTH(Data)
+    tabelaGeral
+GROUP BY
+    Data
 ORDER BY 
-    YEAR(Data), MONTH(Data) ASC;
+    Data ASC;
