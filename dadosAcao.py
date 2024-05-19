@@ -58,6 +58,7 @@ def main():
         df_final = pd.concat(dataframes, ignore_index=True)
         
         caminho_arquivo = f'C:/Users/Weslley Carvalho/OneDrive/Weslley & Beatriz - Arquivos/Vida Pessoal/Weslley & Beatriz/Projetos/Python/Ações/baseDados/db_indicadores_acao.xlsx'
+        
         # Carrega planilha existente
         dfExistente = pd.read_excel(caminho_arquivo)
         
