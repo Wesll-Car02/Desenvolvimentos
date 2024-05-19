@@ -67,7 +67,6 @@ def main():
         # Salva o DataFrame final em um arquivo Excel
         dfExistente.to_excel(caminho_arquivo, index=False)
         
-        print('Deu certo')
     else:
         print("Nenhum dado foi extraído.")
 
