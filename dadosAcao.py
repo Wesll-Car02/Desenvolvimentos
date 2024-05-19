@@ -1,3 +1,8 @@
+# ------------------------------------------------ #
+# Código criado por Weslley Carvalho               #
+# Objetivo: Coletar informações de ativos          #
+# ------------------------------------------------ #
+
 # importação das bibliotecas
 import requests
 from bs4 import BeautifulSoup
@@ -37,8 +42,8 @@ def extrair_dados_acao(acao):
     else:
         print(f"Failed to retrieve page for {acao}. Status code: {response.status_code}")
         return None
-
-# Definição da função main
+    
+    # Definição da função main
 def main():
     acoes = ['VALE3', 'PETR4', 'ITUB4', 'BBAS3', 'BBSE3']  # Adicione mais ações conforme necessário
     dataframes = []
@@ -52,17 +57,19 @@ def main():
     if dataframes:
         df_final = pd.concat(dataframes, ignore_index=True)
         
-        # Exibe o DataFrame
-        display(df_final)
+        caminho_arquivo = f'C:/Users/Weslley Carvalho/OneDrive/Weslley & Beatriz - Arquivos/Vida Pessoal/Weslley & Beatriz/Projetos/Python/Ações/baseDados/db_indicadores_acao.xlsx'
+        # Carrega planilha existente
+        dfExistente = pd.read_excel(caminho_arquivo)
         
-        # Data e Hora atual:
-        name_arquivo =  datetime.now().strftime('%Y%m%d%H%M%S')
+        # Concatena os dados existente com os dados requisitados no contexto
+        dfExistente = pd.concat([dfExistente, df_final], ignore_index=True)
         
-        # Salva o DataFrame final em um arquivo JSON
-        df_final.to_json(f'C:/Users/Weslley Carvalho/OneDrive/Weslley & Beatriz - Arquivos/Vida Pessoal/Weslley & Beatriz/Projetos/Python/Ações/baseDados/request{name_arquivo}.json', orient='records', date_format='iso')
+        # Salva o DataFrame final em um arquivo Excel
+        dfExistente.to_excel(caminho_arquivo, index=False)
+        
+        print('Deu certo')
     else:
         print("Nenhum dado foi extraído.")
 
 if __name__ == "__main__":
     main()
-    
