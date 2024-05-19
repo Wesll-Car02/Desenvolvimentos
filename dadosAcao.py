@@ -40,7 +40,7 @@ def extrair_dados_acao(acao):
 
 # Definição da função main
 def main():
-    acoes = ['VALE3', 'PETR4', 'ITUB4', 'BBAS3']  # Adicione mais ações conforme necessário
+    acoes = ['VALE3', 'PETR4', 'ITUB4', 'BBAS3', 'BBSE3']  # Adicione mais ações conforme necessário
     dataframes = []
 
     for acao in acoes:
@@ -54,8 +54,15 @@ def main():
         
         # Exibe o DataFrame
         display(df_final)
+        
+        # Data e Hora atual:
+        name_arquivo =  datetime.now().strftime('%Y%m%d%H%M%S')
+        
+        # Salva o DataFrame final em um arquivo JSON
+        df_final.to_json(f'C:/Users/Weslley Carvalho/OneDrive/Weslley & Beatriz - Arquivos/Vida Pessoal/Weslley & Beatriz/Projetos/Python/Ações/baseDados/request{name_arquivo}.json', orient='records', date_format='iso')
     else:
         print("Nenhum dado foi extraído.")
 
 if __name__ == "__main__":
     main()
+    
