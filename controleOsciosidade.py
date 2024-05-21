@@ -72,6 +72,7 @@ except KeyboardInterrupt:
     event_queue.put(None)
     db_thread.join()
 
+## Para consumir o dado
 import sqlite3
 
 # Conexão com o banco de dados SQLite
