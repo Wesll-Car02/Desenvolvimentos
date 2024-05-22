@@ -12,12 +12,11 @@ WITH Recebimentos AS (
 SELECT
     m.id,
     m.data,
-    m.debito Entrada,
-    m.credito Saida,
+    m.debito AS Entrada,
+    m.credito AS Saida,
     m.id_movim_finan,
     m.tipo_lanc,
-    COALESCE(r.tipo_recebimento, m.tipo_recebimento) AS tipo_recebimento_ajustado,
-    SUM(m.valor_liquido_recebido) AS valor_liquido_recebido
+    COALESCE(r.tipo_recebimento, m.tipo_recebimento) AS tipo_recebimento_ajustado
 FROM
     fn_movim_finan m
 LEFT JOIN
