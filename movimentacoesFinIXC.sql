@@ -36,6 +36,7 @@ resumoGeral AS (
     ORDER BY
         m.id_movim_finan
 )SELECT * FROM `resumoGeral`;
+-- SELECT SUM(Entrada) AS Total_Entrada, SUM(Saida) AS Total_Saida FROM resumoGeral;
 /*SELECT 
     Data,
     SUM(Entrada) Entrada, 
