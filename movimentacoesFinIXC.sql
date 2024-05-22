@@ -15,6 +15,7 @@ resumoGeral AS (
         m.data Data,
         m.debito AS Entrada,
         m.credito AS Saida,
+        m.id_conta Conta,
         m.id_movim_finan idMov_M,
         COALESCE(r.tipo_recebimento, m.tipo_recebimento) AS tpRec
     FROM
@@ -29,6 +30,7 @@ resumoGeral AS (
         m.data,
         m.credito,
         m.debito,
+        m.id_conta,
         m.id_movim_finan,
         COALESCE(r.tipo_recebimento, m.tipo_recebimento)
     ORDER BY
