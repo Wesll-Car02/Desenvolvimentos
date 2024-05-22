@@ -35,7 +35,7 @@ resumoGeral AS (
         COALESCE(r.tipo_recebimento, m.tipo_recebimento)
     ORDER BY
         m.id_movim_finan
-)SELECT * FROM `resumoGeral`;
+) SELECT * FROM resumoGeral ORDER BY Data ASC;
 -- SELECT SUM(Entrada) AS Total_Entrada, SUM(Saida) AS Total_Saida FROM resumoGeral;
 /*SELECT 
     Data,
