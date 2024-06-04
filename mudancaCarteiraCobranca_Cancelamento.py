@@ -163,7 +163,7 @@ WHERE cc.id IN(
 update_df = pd.DataFrame({'Update Instruction': [update_instruction]})
 
 dfr['update'] = 'UPDATE ixcprovedor.fn_areceber'
-dfr['set'] = 'SET data_cancelamento IS NULL, id_mot_cancelamento IS NULL' + dfr['valor_cancelado'].apply(lambda x: f', valor_cancelado = {x}') + dfr['status'].apply(lambda x: f', status = {x}')
+dfr['set'] = 'SET data_cancelamento IS NULL, id_mot_cancelamento IS NULL' + dfr['valor_cancelado'].apply(lambda x: f', valor_cancelado = {x}') + dfr['status'].apply(lambda x: f", status = '{x}'")
 dfr['where'] = dfr['id'].apply(lambda x: f'WHERE id = {x}') + ' ;'
 
 # Cria o DataFrame do rollback
