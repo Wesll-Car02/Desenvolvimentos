@@ -157,7 +157,7 @@ update_instruction = f"""
                     AND cc.status = 'A' -- Status do contrato 
                     AND c.id_tipo_cliente = 4
                     AND cp.dia_fixo = {diaVencimento}
-                    AND fa.data_vencimento >= '{dataHoje}';"""
+                    AND fa.data_vencimento >= '{dataHoje}');"""
 
 # Cria um DataFrame com a instrução UPDATE
 update_df = pd.DataFrame({'Update Instruction': [update_instruction]})
