@@ -198,11 +198,15 @@ update_instruction_receber = f"""
 # Cria um DataFrame com a instrução UPDATE
 update_dfr= pd.DataFrame({'Update Instruction Receber': [update_instruction_receber]})
 
+# Cria um novo DataFrame chamado 'df_contratos_impactados' contendo os valores únicos da coluna 'id_contrato' do DataFrame 'dfr'
+df_contratos_impactados = pd.DataFrame(dfr['id_contrato'].unique())
+
 # Exporta para um arquivo Excel com duas abas
 with pd.ExcelWriter('dados_para_mudanca.xlsx') as writer:
     rollback_df.to_excel(writer, sheet_name='Rollback_Contrato', index=False)
     update_df.to_excel(writer, sheet_name='Update_Contrato', index=False)
     rollback_dfr.to_excel(writer, sheet_name='Rollback_Receber', index=False)
     update_dfr.to_excel(writer, sheet_name='Update_Receber', index=False)
+    df_contratos_impactados.to_excel(writer, sheet_name='Contratos_Impactados', index=False)
 
 print("Arquivo Excel criado com sucesso!")
