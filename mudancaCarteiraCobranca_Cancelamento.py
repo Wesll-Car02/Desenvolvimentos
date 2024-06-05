@@ -52,11 +52,11 @@ queryContrato = f"""
                     LEFT JOIN condicoes_pagamento cp ON cp.id = cct.id_condicoes_pagamento
                 WHERE 
                     fa.status = 'A' -- Status do título a receber
-                    AND (   (CASE 
+                    AND (CASE 
                                 WHEN cc.cidade IS NULL THEN c.cidade
                                 WHEN cc.cidade = 0 THEN c.cidade
                                 ELSE cc.cidade
-                            END) = ({cidade})) -- 1690: Joaquim Gomes & 1727: Porto Calvo
+                            END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
                     AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
                     AND cc.status = 'A' -- Status do contrato 
                     AND c.id_tipo_cliente = 4
@@ -100,11 +100,11 @@ queryReceber = f"""
                     LEFT JOIN condicoes_pagamento cp ON cp.id = cct.id_condicoes_pagamento
                 WHERE 
                     fa.status = 'A' -- Status do título a receber
-                    AND (   (CASE 
+                    AND (CASE 
                                 WHEN cc.cidade IS NULL THEN c.cidade
                                 WHEN cc.cidade = 0 THEN c.cidade
                                 ELSE cc.cidade
-                            END) ) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
+                            END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
                     AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
                     AND cc.status = 'A' -- Status do contrato 
                     AND c.id_tipo_cliente = 4
@@ -148,11 +148,11 @@ WHERE cc.id IN(
         LEFT JOIN condicoes_pagamento cp ON cp.id = cct.id_condicoes_pagamento
     WHERE 
         fa.status = 'A' -- Status do título a receber
-        AND (   (CASE 
+        AND  (CASE 
                     WHEN cc.cidade IS NULL THEN c.cidade
                     WHEN cc.cidade = 0 THEN c.cidade
                     ELSE cc.cidade
-                END) = ({cidade}) -- 1690: Joaquim Gomes & 1727: Porto Calvo
+                END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
         AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
         AND cc.status = 'A' -- Status do contrato 
         AND c.id_tipo_cliente = 4
@@ -184,11 +184,11 @@ update_instruction_receber = f"""
             SET fa.data_cancelamento = '{dataHoje}', fa.id_mot_cancelamento = 72, fa.status = 'C', fa.valor_cancelado = fa.valor_aberto
             WHERE 
                     fa.status = 'A' -- Status do título a receber
-                    AND (   (CASE 
+                    AND (CASE 
                                 WHEN cc.cidade IS NULL THEN c.cidade
                                 WHEN cc.cidade = 0 THEN c.cidade
                                 ELSE cc.cidade
-                            END) = {cidade}) -- 1690: Joaquim Gomes & 1727: Porto Calvo
+                            END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
                     AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
                     AND cc.status = 'A' -- Status do contrato 
                     AND c.id_tipo_cliente = 4
