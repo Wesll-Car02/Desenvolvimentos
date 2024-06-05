@@ -126,38 +126,38 @@ rollback_df = df[['id', 'id_carteira_cobranca', 'update', 'set', 'where']]
 
 # Instrução UPDATE para os contratos completa
 update_instruction = f"""
-UPDATE cliente_contrato cc
-SET cc.id_carteira_cobranca = {carteiraCobranca}
-WHERE cc.id IN(
-    SELECT 
-        CASE
-            WHEN fa.id_contrato IS NULL THEN fa.id_contrato_avulso
-            WHEN fa.id_contrato = 0 THEN fa.id_contrato_avulso
-            ELSE fa.id_contrato
-        END id_contrato
-    FROM 
-        fn_areceber fa
-        LEFT JOIN cliente_contrato cc ON 
-            (CASE
-                WHEN fa.id_contrato IS NULL THEN fa.id_contrato_avulso
-                WHEN fa.id_contrato = 0 THEN fa.id_contrato_avulso
-                ELSE fa.id_contrato
-            END) = cc.id
-        LEFT JOIN cliente c ON fa.id_cliente = c.id
-        LEFT JOIN cliente_contrato_tipo cct ON cc.id_tipo_contrato = cct.id
-        LEFT JOIN condicoes_pagamento cp ON cp.id = cct.id_condicoes_pagamento
-    WHERE 
-        fa.status = 'A' -- Status do título a receber
-        AND  (CASE 
-                    WHEN cc.cidade IS NULL THEN c.cidade
-                    WHEN cc.cidade = 0 THEN c.cidade
-                    ELSE cc.cidade
-                END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
-        AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
-        AND cc.status = 'A' -- Status do contrato 
-        AND c.id_tipo_cliente = 4
-        AND cp.dia_fixo = {diaVencimento}
-        AND fa.data_vencimento >= '{dataHoje}';"""
+            UPDATE cliente_contrato cc
+            SET cc.id_carteira_cobranca = {carteiraCobranca}
+            WHERE cc.id IN(
+                SELECT 
+                    CASE
+                        WHEN fa.id_contrato IS NULL THEN fa.id_contrato_avulso
+                        WHEN fa.id_contrato = 0 THEN fa.id_contrato_avulso
+                        ELSE fa.id_contrato
+                    END id_contrato
+                FROM 
+                    fn_areceber fa
+                    LEFT JOIN cliente_contrato cc ON 
+                        (CASE
+                            WHEN fa.id_contrato IS NULL THEN fa.id_contrato_avulso
+                            WHEN fa.id_contrato = 0 THEN fa.id_contrato_avulso
+                            ELSE fa.id_contrato
+                        END) = cc.id
+                    LEFT JOIN cliente c ON fa.id_cliente = c.id
+                    LEFT JOIN cliente_contrato_tipo cct ON cc.id_tipo_contrato = cct.id
+                    LEFT JOIN condicoes_pagamento cp ON cp.id = cct.id_condicoes_pagamento
+                WHERE 
+                    fa.status = 'A' -- Status do título a receber
+                    AND  (CASE 
+                                WHEN cc.cidade IS NULL THEN c.cidade
+                                WHEN cc.cidade = 0 THEN c.cidade
+                                ELSE cc.cidade
+                            END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
+                    AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
+                    AND cc.status = 'A' -- Status do contrato 
+                    AND c.id_tipo_cliente = 4
+                    AND cp.dia_fixo = {diaVencimento}
+                    AND fa.data_vencimento >= '{dataHoje}';"""
 
 # Cria um DataFrame com a instrução UPDATE
 update_df = pd.DataFrame({'Update Instruction': [update_instruction]})
