@@ -199,7 +199,7 @@ update_instruction_receber = f"""
 update_dfr= pd.DataFrame({'Update Instruction Receber': [update_instruction_receber]})
 
 # Cria um novo DataFrame chamado 'df_contratos_impactados' contendo os valores únicos da coluna 'id_contrato' do DataFrame 'dfr'
-df_contratos_impactados = pd.DataFrame(dfr['id_contrato'].unique())
+df_contratos_impactados = pd.DataFrame(dfr['id_contrato'].unique(), columns=['id_contrato_unico'])
 
 # Exporta para um arquivo Excel com duas abas
 with pd.ExcelWriter('dados_para_mudanca.xlsx') as writer:
