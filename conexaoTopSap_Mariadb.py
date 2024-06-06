@@ -122,7 +122,7 @@ def requisicao_e_inserir(rota, conn, cur):
 try:
     conn = mysql.connector.connect(
         host='localhost',
-        database='dtel',
+        database='xxx',
         user='user',
         password='password'
     )
