@@ -21,6 +21,7 @@ conn = mysql.connector.connect(
 cidade = 1690
 diaVencimento = 25
 carteiraCobranca = 76   # Carteira de cobrança de interesse
+tipoCliente = 4
 
 # Obter a data de hoje e formatar como string
 dataHoje = date.today().strftime('%Y-%m-%d')
@@ -59,7 +60,7 @@ queryContrato = f"""
                             END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
                     AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
                     AND cc.status = 'A' -- Status do contrato 
-                    AND c.id_tipo_cliente = 4
+                    AND c.id_tipo_cliente = {tipoCliente}
                     AND cp.dia_fixo = {diaVencimento}
                     AND fa.data_vencimento >= '{dataHoje}')
                 AND cc.id_carteira_cobranca != {carteiraCobranca}"""
@@ -107,7 +108,7 @@ queryReceber = f"""
                             END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
                     AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
                     AND cc.status = 'A' -- Status do contrato 
-                    AND c.id_tipo_cliente = 4
+                    AND c.id_tipo_cliente = {tipoCliente}
                     AND cp.dia_fixo = {diaVencimento}
                     AND fa.data_vencimento >= '{dataHoje}'
             ) SELECT * FROM tabelaContasReceber"""
@@ -155,7 +156,7 @@ update_instruction = f"""
                             END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
                     AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
                     AND cc.status = 'A' -- Status do contrato 
-                    AND c.id_tipo_cliente = 4
+                    AND c.id_tipo_cliente = {tipoCliente}
                     AND cp.dia_fixo = {diaVencimento}
                     AND fa.data_vencimento >= '{dataHoje}');"""
 
@@ -191,7 +192,7 @@ update_instruction_receber = f"""
                             END) = {cidade} -- 1690: Joaquim Gomes & 1727: Porto Calvo
                     AND fa.id_carteira_cobranca != {carteiraCobranca} -- Carteira de faturamento diferente de GCP
                     AND cc.status = 'A' -- Status do contrato 
-                    AND c.id_tipo_cliente = 4
+                    AND c.id_tipo_cliente = {tipoCliente}
                     AND cp.dia_fixo = {diaVencimento}
                     AND fa.data_vencimento >= '{dataHoje}';"""
 
