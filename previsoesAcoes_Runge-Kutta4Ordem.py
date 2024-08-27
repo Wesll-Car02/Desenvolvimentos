@@ -1,6 +1,7 @@
 import numpy as np
 import yfinance as yf
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # Função derivada simplificada (delta de preço)
 def price_derivative(t, P, prices, volatility):
@@ -58,13 +59,18 @@ def predict_stock_price(ticker, start_date, end_date, n_dias):
     plt.legend()
     plt.show()
     
-    return predicted_prices[-n_dias:]
+    # Criar DataFrame com a previsão dos próximos n_dias
+    forecast_dates = pd.date_range(start=data.index[-1] + pd.Timedelta(days=1), periods=n_dias, freq='B')  # Dias úteis
+    forecast_df = pd.DataFrame({'Data': forecast_dates, 'Previsão de Preço': predicted_prices[-n_dias:]})
+    
+    return forecast_df
 
 # Exemplo de uso:
-ticker = 'PETR4.SA'
+ticker = 'VALE3.SA'
 start_date = "2022-01-01"
 end_date = "2024-12-31"
 n_dias = 180
 
-previsao = predict_stock_price(ticker, start_date, end_date, n_dias)
-print(f"Previsão dos próximos {n_dias} dias:", previsao)
+previsao_df = predict_stock_price(ticker, start_date, end_date, n_dias)
+print(f"Previsão dos próximos {n_dias} dias:")
+display(previsao_df.head(60))
