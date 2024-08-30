@@ -34,7 +34,8 @@ def executa_update(id_contrato):
                         WHERE
                             cc.id = '{id_contrato}'
                             AND cc.status = 'P'
-                            AND cc.data_cadastro_sistema = CURRENT_DATE()""" 
+                            AND cc.data_cadastro_sistema = CURRENT_DATE()
+                            AND ccat.assinado = 'N'""" 
     return executa_atualizacao
 
 # Função de conexão ao banco
