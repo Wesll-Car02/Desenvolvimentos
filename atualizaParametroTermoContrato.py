@@ -28,7 +28,9 @@ def executa_update(id_contrato):
                         UPDATE 
                             cliente_contrato_assinatura_termo ccat
                             LEFT JOIN cliente_contrato cc ON cc.id = ccat.id_contrato
-                        SET ccat.ativar_contrato = CASE WHEN ccat.id_termo = '128' THEN 'S' ELSE 'N' END
+                        SET 
+                            ccat.ativar_contrato = CASE WHEN ccat.id_termo = '129' THEN 'S' ELSE 'N' END,
+                            ccat.assinado = CASE WHEN ccat.id_termo IN ('130', '133', '134') THEN 'S' ELSE 'N' END
                         WHERE
                             cc.id = '{id_contrato}'
                             AND cc.status = 'P'
