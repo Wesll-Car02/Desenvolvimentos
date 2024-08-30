@@ -28,11 +28,11 @@ def executa_update(id_contrato):
                         UPDATE 
                             cliente_contrato_assinatura_termo ccat
                             LEFT JOIN cliente_contrato cc ON cc.id = ccat.id_contrato
-                        SET ativar_contrato = CASE WHEN ccat.id_termo = '128' THEN 'S' ELSE 'N' END
+                        SET ccat.ativar_contrato = CASE WHEN ccat.id_termo = '128' THEN 'S' ELSE 'N' END
                         WHERE
                             cc.id = '{id_contrato}'
                             AND cc.status = 'P'
-                            AND data_cadastro_sistema = CURRENT_DATE()""" 
+                            AND cc.data_cadastro_sistema = CURRENT_DATE()""" 
     return executa_atualizacao
 
 # Função de conexão ao banco
