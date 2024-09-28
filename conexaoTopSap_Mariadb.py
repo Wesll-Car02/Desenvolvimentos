@@ -3,7 +3,7 @@
 # Objetivo: Este script é destinado a automatizar  #
 # a extração dos dados da ALEL.                    #
 # ------------------------------------------------ #
-import os
+
 import requests
 import mysql.connector  # pip install mysql-connector-python
 from mysql.connector import Error
